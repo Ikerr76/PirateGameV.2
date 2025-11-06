@@ -39,5 +39,6 @@ public class PlayerInteraction : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }
 
+  
 
 }
