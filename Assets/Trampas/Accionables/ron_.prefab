@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 2083783667396657054}
   - component: {fileID: 6077876198352461310}
   - component: {fileID: 794736417128950462}
+  - component: {fileID: 3242677459107105563}
+  - component: {fileID: -980823234268467715}
+  - component: {fileID: -4295832887068065969}
   m_Layer: 0
   m_Name: ron_
   m_TagString: Untagged
@@ -101,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41001bb4f1e45e1469328ec8becced6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: veneno
+  requiredItem: {fileID: 0}
   damage: 1
   prepareSound: {fileID: 8300000, guid: df2a3d263b6a9b9409d38443470ccd22, type: 3}
   triggerSound: {fileID: 0}
@@ -117,3 +120,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70194df4496921b4aa5eb551fb2b5737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3242677459107105563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253570730651579913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a1d779922de3743a3bd413f18ba2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredPrepItem: veneno
+  damage: 1
+--- !u!65 &-980823234268467715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253570730651579913}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.57, y: 4.7599998, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4295832887068065969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253570730651579913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfda3a703fbbf749bc898a5b96c58db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staticTrap: {fileID: 0}

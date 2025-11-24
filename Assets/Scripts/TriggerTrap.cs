@@ -4,13 +4,13 @@ public class TriggerTrap : MonoBehaviour
 {
     public int damage = 1;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        BossHealth health = other.GetComponent<BossHealth>();
-        if (health != null)
+        BossHealth boss = other.GetComponent<BossHealth>();
+        if (boss != null)
         {
-            health.RecibirDaño(damage);
-            Debug.Log($"Trampa activada: -{damage} HP a {other.name}");
+            boss.RecibirDaño(damage);
+            Destroy(gameObject);
         }
     }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5a4127fb70d282e4a9e94e5cb87867fe
+guid: d1514ceefd02ffe418a00b05a070c0f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1570007484207556701
-    second: anguila_0
+      213: -7635079070381702679
+    second: farolillo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: anguila_0
+      name: farolillo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 890
-        height: 517
+        width: 920
+        height: 920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a79a19e286363ae0800000000000000
-      internalID: -1570007484207556701
+      spriteID: 9e101e1b900ca0690800000000000000
+      internalID: -7635079070381702679
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      anguila_0: -1570007484207556701
+      farolillo_0: -7635079070381702679
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

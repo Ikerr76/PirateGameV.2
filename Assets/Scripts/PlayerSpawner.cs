@@ -1,14 +1,9 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [Header("Punto de spawn del jugador")]
     public Transform spawnPoint;
-
-    [Header("Jugador")]
     public GameObject playerPrefab;
-
-    [Header("AnimaciÛn de spawn")]
     public string spawnAnimationName = "Spawn";
 
     private GameObject playerInstance;
@@ -20,35 +15,40 @@ public class PlayerSpawner : MonoBehaviour
 
     void SpawnPlayer()
     {
-        // Instanciar jugador
-        playerInstance = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        Vector3 fixedPosition = new Vector3(
+            spawnPoint.position.x,
+            spawnPoint.position.y,
+            0  // ‚Üê FORZAMOS Z = 0 SIEMPRE
+        );
 
-        // Reproducir animaciÛn
+        playerInstance = Instantiate(playerPrefab, fixedPosition, Quaternion.identity);
+
+        // Asignar c√°mara
+        CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
+        if (cam != null)
+            cam.SetTarget(playerInstance.transform);
+
+        // Animaci√≥n + movimiento
         Animator anim = playerInstance.GetComponent<Animator>();
-        if (anim != null && !string.IsNullOrEmpty(spawnAnimationName))
-        {
-            anim.Play(spawnAnimationName);
-        }
-
-        // Desactivar movimiento hasta que termine la animaciÛn
         var movement = playerInstance.GetComponent<Cainos.PixelArtTopDown_Basic.TopDownCharacterController>();
+
         if (movement != null)
             movement.enabled = false;
 
-        // Rehabilitar movimiento cuando la animaciÛn termine
-        StartCoroutine(EnableMovementAfterAnimation(anim));
+        if (anim != null)
+            anim.Play(spawnAnimationName);
+
+        StartCoroutine(EnableMovementAfterSpawn(anim, movement));
     }
 
-    private System.Collections.IEnumerator EnableMovementAfterAnimation(Animator anim)
-    {
-        if (anim != null)
-        {
-            // Esperar a que termine la animaciÛn actual
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        }
 
-        // Activar movimiento
-        var movement = playerInstance.GetComponent<Cainos.PixelArtTopDown_Basic.TopDownCharacterController>();
+    private System.Collections.IEnumerator EnableMovementAfterSpawn(Animator anim, Cainos.PixelArtTopDown_Basic.TopDownCharacterController movement)
+    {
+        // Esperar duraci√≥n de animaci√≥n
+        float duration = (anim != null) ? anim.GetCurrentAnimatorStateInfo(0).length : 1f;
+
+        yield return new WaitForSeconds(duration);
+
         if (movement != null)
             movement.enabled = true;
     }

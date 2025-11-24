@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PrepareStaticPoint : Interactable
 {
-    public StaticTrigger target;
+    public StaticTrigger staticTrap;
 
     public override void Interact(GameObject actor)
     {
-        if (!GamePhaseManager.Instance.EsEjecucion()) return;
-
         var inv = actor.GetComponent<InventoryManager>();
-        target.Preparar(inv);
+        if (inv == null) return;
+
+        staticTrap.Prepare(inv);
     }
 }

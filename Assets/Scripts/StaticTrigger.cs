@@ -1,21 +1,24 @@
-using System.Xml.Linq;
 using UnityEngine;
 
 public class StaticTrigger : MonoBehaviour
 {
-    public string requiredPrepItem;   // "Veneno", "Anguila", "Fregona y cubo"
+    [Header("Trampa estática que se prepara con un ítem")]
+    public string requiredPrepItem;   // "Veneno", "Anguila", "Fregona"
     public int damage = 1;
-    public bool isPrimed = false;
 
-    public void Preparar(InventoryManager inv)
+    private bool isPrimed = false;
+
+    public void Prepare(InventoryManager inv)
     {
         if (inv.ContieneItem(requiredPrepItem))
         {
             isPrimed = true;
-            // opcional: consumir �tem / generar ruido
             Debug.Log($"{name} preparado con {requiredPrepItem}");
         }
-        else Debug.Log($"Falta {requiredPrepItem}");
+        else
+        {
+            Debug.Log($"Falta {requiredPrepItem} para preparar {name}");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -26,8 +29,8 @@ public class StaticTrigger : MonoBehaviour
         if (boss != null)
         {
             boss.RecibirDaño(damage);
-            isPrimed = false; // o destruir si es de un solo uso
-            Debug.Log($"{name} activado sobre el Boss (-{damage} HP)");
+            isPrimed = false;
+            Debug.Log($"{name} activado por el boss (-{damage} HP)");
         }
     }
 }
