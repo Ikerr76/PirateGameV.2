@@ -978,16 +978,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1376937257542809650, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_Size.x
-      value: 0.16
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 1376937257542809650, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_Size.y
-      value: 0.16
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 1376937257542809650, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4720216080918292613, guid: 909722735192e294cb9d8941565dc242, type: 3}
+      objectReference: {fileID: 4355439395540146258, guid: 34c888430f4b1dc4b9817e35a3461336, type: 3}
     - target: {fileID: 1376937257542809650, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_Color.b
       value: 0.9024564
@@ -1062,19 +1062,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5244083264437341139, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.16
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 5244083264437341139, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.16
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 5244083264437341139, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 5244083264437341139, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 5513017042668411002, guid: 4dd02fef6a8f39a4985ef775df3c597d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1193,7 +1193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5567049829206018352}
-  lerpSpeed: 1
+  offset: {x: 0, y: 0, z: -10}
+  smoothSpeed: 5
 --- !u!114 &459762140399847239
 MonoBehaviour:
   m_ObjectHideFlags: 0

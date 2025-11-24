@@ -90,7 +90,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -114,7 +114,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -169,19 +169,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 36
-        height: 45
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 181ac1dc4bd14d5c0800000000000000
-      internalID: -4191692690802564735
+      spriteID: 18974f9cf8d84b44e9cc7f1edd6bbea2
+      internalID: -18509335
       vertices: []
       indices: 
       edges: []
@@ -190,20 +190,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 48
         y: 0
-        width: 37
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 418edd58a435b8e10800000000000000
-      internalID: 2200944422439217172
+      spriteID: 7b7b00c06db48764ca2bb465f8837978
+      internalID: 934487646
       vertices: []
       indices: 
       edges: []
@@ -212,20 +212,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 95
+        x: 96
         y: 0
         width: 48
-        height: 47
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bcc36cf5d62539720800000000000000
-      internalID: 2851713618767396043
+      spriteID: f61849d6cd39a7f4698a7b8784c7a620
+      internalID: -1245816727
       vertices: []
       indices: 
       edges: []
@@ -234,20 +234,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 154
+        x: 144
         y: 0
-        width: 37
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 40b313c1f769f8f50800000000000000
-      internalID: 6885887827950779140
+      spriteID: e1f1ea3dcafbe9e4e877e2b4ed188ff5
+      internalID: 755080034
       vertices: []
       indices: 
       edges: []
@@ -256,20 +256,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_4
       rect:
         serializedVersion: 2
-        x: 202
+        x: 192
         y: 0
-        width: 37
-        height: 46
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6bfbe57a3cf9500d0800000000000000
-      internalID: -3457181476261544010
+      spriteID: 53f84b04d5fe243458c38522c12c46c6
+      internalID: 871293241
       vertices: []
       indices: 
       edges: []
@@ -278,20 +278,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_5
       rect:
         serializedVersion: 2
-        x: 250
+        x: 240
         y: 0
-        width: 26
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fca37991a163f04e0800000000000000
-      internalID: -2013331022684931377
+      spriteID: 54e86d990d7b7824f87d161e0c43e4b9
+      internalID: -1600346198
       vertices: []
       indices: 
       edges: []
@@ -300,20 +300,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_6
       rect:
         serializedVersion: 2
-        x: 298
-        y: 2
-        width: 26
-        height: 45
+        x: 288
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8e7bfb9dcbc24f210800000000000000
-      internalID: 1365765776618797032
+      spriteID: 76bb5ee219bba44499bf04a184a7293d
+      internalID: 313744567
       vertices: []
       indices: 
       edges: []
@@ -322,20 +322,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_7
       rect:
         serializedVersion: 2
-        x: 346
-        y: 2
-        width: 26
-        height: 45
+        x: 336
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 11b09aab1b2114310800000000000000
-      internalID: 1387410714756975377
+      spriteID: cd304e1e50b90074da4d44338643a74b
+      internalID: -1591895888
       vertices: []
       indices: 
       edges: []
@@ -344,20 +344,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_8
       rect:
         serializedVersion: 2
-        x: 394
+        x: 384
         y: 0
-        width: 26
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e79eaa80093e74d60800000000000000
-      internalID: 7874512681240815998
+      spriteID: d09df26c4c0c4e940a2c47edab25937f
+      internalID: 1502424879
       vertices: []
       indices: 
       edges: []
@@ -366,20 +366,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_9
       rect:
         serializedVersion: 2
-        x: 442
+        x: 432
         y: 0
-        width: 37
-        height: 46
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0e8623ffb80055920800000000000000
-      internalID: 2978287329857399008
+      spriteID: cef2405d179204f4f95c5715997bff10
+      internalID: -1582009817
       vertices: []
       indices: 
       edges: []
@@ -388,20 +388,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_10
       rect:
         serializedVersion: 2
-        x: 490
+        x: 480
         y: 0
-        width: 37
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b29e2fd4a299009d0800000000000000
-      internalID: -2810077760503748309
+      spriteID: 578a97416a4ef95429e282b0dfcf94ac
+      internalID: 1449374424
       vertices: []
       indices: 
       edges: []
@@ -410,20 +410,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_11
       rect:
         serializedVersion: 2
-        x: 527
+        x: 528
         y: 0
         width: 48
-        height: 47
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 812241f41f1c3e0d0800000000000000
-      internalID: -3394656451949223400
+      spriteID: 2d7a1439f9e1c5d458cfe00f01be21d8
+      internalID: -159301580
       vertices: []
       indices: 
       edges: []
@@ -432,20 +432,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_12
       rect:
         serializedVersion: 2
-        x: 575
+        x: 576
         y: 0
-        width: 37
-        height: 47
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 00729bf4d5424ce10800000000000000
-      internalID: 2216936899761219328
+      spriteID: 85dfd5f5077ddc646a6390e89ce0f1f7
+      internalID: 1059653055
       vertices: []
       indices: 
       edges: []
@@ -454,20 +454,20 @@ TextureImporter:
       name: ArmarioSpriteSheet_13
       rect:
         serializedVersion: 2
-        x: 623
-        y: 2
-        width: 37
-        height: 45
+        x: 624
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a900b94254389b4a0800000000000000
-      internalID: -6577081447807778662
+      spriteID: 1017ffe2173c9ee4b97a9aa0e4738ea3
+      internalID: -90199643
       vertices: []
       indices: 
       edges: []
@@ -476,7 +476,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a2ebe3928b20bfb4fb4e7f74387ff73d
     internalID: 0
     vertices: []
     indices: 
@@ -486,20 +486,20 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ArmarioSpriteSheet_0: -4191692690802564735
-      ArmarioSpriteSheet_1: 2200944422439217172
-      ArmarioSpriteSheet_10: -2810077760503748309
-      ArmarioSpriteSheet_11: -3394656451949223400
-      ArmarioSpriteSheet_12: 2216936899761219328
-      ArmarioSpriteSheet_13: -6577081447807778662
-      ArmarioSpriteSheet_2: 2851713618767396043
-      ArmarioSpriteSheet_3: 6885887827950779140
-      ArmarioSpriteSheet_4: -3457181476261544010
-      ArmarioSpriteSheet_5: -2013331022684931377
-      ArmarioSpriteSheet_6: 1365765776618797032
-      ArmarioSpriteSheet_7: 1387410714756975377
-      ArmarioSpriteSheet_8: 7874512681240815998
-      ArmarioSpriteSheet_9: 2978287329857399008
+      ArmarioSpriteSheet_0: -18509335
+      ArmarioSpriteSheet_1: 934487646
+      ArmarioSpriteSheet_10: 1449374424
+      ArmarioSpriteSheet_11: -159301580
+      ArmarioSpriteSheet_12: 1059653055
+      ArmarioSpriteSheet_13: -90199643
+      ArmarioSpriteSheet_2: -1245816727
+      ArmarioSpriteSheet_3: 755080034
+      ArmarioSpriteSheet_4: 871293241
+      ArmarioSpriteSheet_5: -1600346198
+      ArmarioSpriteSheet_6: 313744567
+      ArmarioSpriteSheet_7: -1591895888
+      ArmarioSpriteSheet_8: 1502424879
+      ArmarioSpriteSheet_9: -1582009817
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
