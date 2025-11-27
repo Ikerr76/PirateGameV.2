@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 88103fc8a98cdc147af80693a647f046
+guid: 4625ab617f30a384ea1ec4f6432a9ade
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3421365872831394928
-    second: veneno_0
+      213: -5735269405510238097
+    second: Protagonista_Arriba_0
   - first:
-      213: -2641983732855530515
-    second: veneno_1
+      213: -8889483530092859500
+    second: Protagonista_Arriba_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: veneno_0
+      name: Protagonista_Arriba_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 0
-        width: 12
-        height: 26
+        width: 32
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07472c852222b7f20800000000000000
-      internalID: 3421365872831394928
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: veneno_1
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 15
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: deb19c4fac9c55bd0800000000000000
-      internalID: -2641983732855530515
+      spriteID: f608569ccda3860b0800000000000000
+      internalID: -5735269405510238097
       vertices: []
       indices: 
       edges: []
@@ -150,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 92025db93e2d09e4aad8185e0da3390f
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +138,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      veneno_0: 3421365872831394928
-      veneno_1: -2641983732855530515
+      Protagonista_Arriba_0: -5735269405510238097
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

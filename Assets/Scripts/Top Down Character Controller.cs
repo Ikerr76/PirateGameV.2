@@ -6,57 +6,53 @@ namespace Cainos.PixelArtTopDown_Basic
 {
     public class TopDownCharacterController : MonoBehaviour
     {
-        public float speed;
+        public float speed = 3f;
 
-        private SpriteRenderer spriteRenderer;
         private Animator animator;
-        private Rigidbody2D rigidbody2D;
+        private Rigidbody2D rb;
 
         private void Start()
         {
             animator = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            rigidbody2D = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
         {
             Vector2 dir = Vector2.zero;
 
-            // Movimiento horizontal
-            if (Input.GetKey(KeyCode.A))
+            // --- Movimiento Horizontal ---
+            if (Input.GetKey(KeyCode.A))     // izquierda
             {
-                spriteRenderer.flipX = true;
                 dir.x = -1;
-                //animator.SetInteger("Direction", 3);   // Izquierda
+                animator.SetInteger("Direction", 3);
+                transform.localScale = new Vector3(-1, 1, 1); // mirar a la izq
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D)) // derecha
             {
-
-                spriteRenderer.flipX = false;
                 dir.x = 1;
-                //animator.SetInteger("Direction", 2);   // Derecha
+                animator.SetInteger("Direction", 2);
+                transform.localScale = new Vector3(1, 1, 1); // mirar a la der
             }
 
-            // Movimiento vertical
-            if (Input.GetKey(KeyCode.W))
+            // --- Movimiento Vertical ---
+            if (Input.GetKey(KeyCode.W))     // arriba
             {
                 dir.y = 1;
-                //animator.SetInteger("Direction", 1);   // Arriba
+                animator.SetInteger("Direction", 1);
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S)) // abajo
             {
                 dir.y = -1;
-                //animator.SetInteger("Direction", 0);   // Abajo
+                animator.SetInteger("Direction", 0);
             }
 
+            // --- Activar animación ---
             dir.Normalize();
-
             animator.SetBool("IsMoving", dir.magnitude > 0);
 
-            // Movimiento real del Rigidbody2D
-
-            rigidbody2D.linearVelocity = speed * dir;
+            // --- Movimiento real ---
+            rb.linearVelocity = speed * dir;
         }
     }
 }
