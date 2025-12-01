@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3242818294845998057}
   - component: {fileID: 1440250057424111645}
   - component: {fileID: -7249852883430951835}
+  - component: {fileID: 2624328406364994621}
   m_Layer: 0
   m_Name: Barril_0
   m_TagString: Untagged
@@ -134,3 +135,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8125, y: 0.96875}
   m_EdgeRadius: 0
+--- !u!114 &2624328406364994621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042959117823001203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41001bb4f1e45e1469328ec8becced6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItem: {fileID: 11400000, guid: 1b4f7a355f228594b9024d2729a89cc9, type: 2}
+  damage: 1
+  prepareSound: {fileID: 0}
+  triggerSound: {fileID: 0}

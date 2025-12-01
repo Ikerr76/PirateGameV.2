@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections.Generic;
-using System.Linq;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -11,30 +9,57 @@ public class InventoryManager : MonoBehaviour
     public Image slot2Image;
     public TextMeshProUGUI mensajeTMP;
 
-    [Header("Configuración")]
+    [Header("Mensajes")]
     public float mensajeDuracion = 2f;
-    public int maxItems = 2;
 
-    //private ItemData[] items = new ItemData[2];
-    //private Dictionary<ItemData, int> items = new Dictionary<ItemData, int>();
-    private InventoryItem[] items;
+    [Header("Crafteo")]
+    public CraftingRecipe[] recetas;
+    public CraftingProgressUI craftingUI;
+
+    [Header("Drop Settings")]
+    public Transform dropPoint;      // Lugar donde soltar los objetos
+    public float dropOffset = 0.5f;  // Por si quieres moverlos un poco
+
+    // --- Inventario Interno ---
+    public ItemData[] items = new ItemData[2];
+
+    // --- Crafteo interno ---
+    private CraftingRecipe recetaActual = null;
+    private bool isCrafting = false;
+    private float craftingTimer = 0f;
 
     void Start()
     {
-        items = new InventoryItem[2];
-        ActualizarInventario();
+        ActualizarUI();
     }
 
-    // Agregar ítem al inventario
+    void Update()
+    {
+        // Q → soltar slot 0
+        if (Input.GetKeyDown(KeyCode.Q))
+            DropSlot0();
+
+        // F → mantener para craftear
+        if (Input.GetKey(KeyCode.F))
+            ProcesarCrafteo();
+
+        if (Input.GetKeyUp(KeyCode.F))
+            CancelarCrafteo();
+    }
+
+    // ================================================================
+    // ------------------------ INVENTARIO -----------------------------
+    // ================================================================
+
     public bool AddItem(ItemData newItem)
     {
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null)
             {
-                items[i] = new InventoryItem(newItem);
-                ActualizarInventario();
-                MostrarMensaje($"Recogiste {newItem.itemName}");
+                items[i] = newItem;
+                ActualizarUI();
+                MostrarMensaje("Recogiste " + newItem.itemName);
                 return true;
             }
         }
@@ -42,75 +67,174 @@ public class InventoryManager : MonoBehaviour
         MostrarMensaje("Inventario lleno");
         return false;
     }
-    public void DropWithQ()
-    {
-        // Si no hay nada en slot 0 → no hacemos nada
-        if (items[0] == null)
-            return;
 
-        // Soltar el item del slot 0 en el mundo
-        if (items[0].item.prefab != null)
+    public bool ContieneItem(ItemData item)
+    {
+        foreach (var i in items)
         {
-            Instantiate(
-                items[0].item.prefab,
-                transform.position,         // Justo en el jugador
-                Quaternion.identity
-            );
+            if (i == item)
+                return true;
+        }
+        return false;
+    }
+
+    public bool ContieneItem(string itemName)
+    {
+        foreach (var i in items)
+        {
+            if (i != null && i.itemName == itemName)
+                return true;
+        }
+        return false;
+    }
+
+    void ActualizarUI()
+    {
+        slot1Image.sprite = items[0] != null ? items[0].icon : null;
+        slot1Image.color = items[0] != null ? Color.white : new Color(1, 1, 1, .3f);
+
+        slot2Image.sprite = items[1] != null ? items[1].icon : null;
+        slot2Image.color = items[1] != null ? Color.white : new Color(1, 1, 1, .3f);
+    }
+
+    // ================================================================
+    // ------------------------ DROP OBJETO ----------------------------
+    // ================================================================
+
+    public void DropSlot0()
+    {
+        if (items[0] == null)
+        {
+            MostrarMensaje("Nada que soltar");
+            return;
         }
 
-        MostrarMensaje($"Soltaste {items[0].item.itemName}");
+        ItemData item = items[0];
 
-        // Si el slot 1 tiene algo → pásalo al slot 0
+        // Instanciar el prefab en dropPoint
+        Vector3 pos = dropPoint != null ?
+                      dropPoint.position :
+                      Vector3.zero;
+
+        if (item.prefab != null)
+        {
+            Instantiate(item.prefab, pos + Vector3.right * dropOffset, Quaternion.identity);
+        }
+
+        // Mover slot 1 → slot 0
         items[0] = items[1];
-
-        // Vacía slot 1
         items[1] = null;
 
-        // Actualizar UI
-        ActualizarInventario();
+        ActualizarUI();
+        MostrarMensaje("Soltaste " + item.itemName);
     }
 
-    // Soltar ítem
-    public void RemoveItem(int index, int amount = 1)
+    // ================================================================
+    // ------------------------ CRAFTEO --------------------------------
+    // ================================================================
+
+    void ProcesarCrafteo()
     {
-        if (index >= 0 && index < items.Length && items[index] != null)
+        if (!isCrafting)
         {
-            MostrarMensaje($"Soltaste {items[index].item.itemName}");
+            recetaActual = BuscarRecetaValida();
 
-            //// Instanciar objeto en el mundo
-            //if (items[index].prefab != null)
-            //{
-            //    Instantiate(items[index].prefab, transform.position + Vector3.right, Quaternion.identity);
-            //}
-
-            items[index].quantity -= amount;
-            if (items[index].quantity <= 0)
+            if (recetaActual == null)
             {
-                items[index] = null;
+                MostrarMensaje("No puedes craftear nada");
+                return;
             }
-            ActualizarInventario();
+
+            isCrafting = true;
+            craftingTimer = 0f;
+
+            if (craftingUI != null)
+                craftingUI.Show();
         }
+
+        craftingTimer += Time.deltaTime;
+
+        if (craftingUI != null)
+            craftingUI.SetProgress(craftingTimer / recetaActual.craftingTime);
+
+        if (craftingTimer >= recetaActual.craftingTime)
+            CompletarCrafteo();
     }
 
-    // Actualizar imágenes de los slots
-    void ActualizarInventario()
+    CraftingRecipe BuscarRecetaValida()
     {
-        slot1Image.sprite = items[0] != null ? items[0].item.icon : null;
-        slot1Image.color = items[0] != null ? Color.white : new Color(1, 1, 1, 0.3f);
-
-        slot2Image.sprite = items[1] != null ? items[1].item.icon : null;
-        slot2Image.color = items[1] != null ? Color.white : new Color(1, 1, 1, 0.3f);
-    }
-
-    // Mostrar mensaje temporal
-    void MostrarMensaje(string mensaje)
-    {
-        if (mensajeTMP != null)
+        foreach (var receta in recetas)
         {
-            mensajeTMP.text = mensaje;
-            CancelInvoke(nameof(LimpiarMensaje));
-            Invoke(nameof(LimpiarMensaje), mensajeDuracion);
+            if (TieneIngredientes(receta))
+                return receta;
         }
+        return null;
+    }
+
+    bool TieneIngredientes(CraftingRecipe receta)
+    {
+        foreach (var ingrediente in receta.ingredientes)
+        {
+            if (!ContieneItem(ingrediente.itemName))
+                return false;
+        }
+        return true;
+    }
+
+    void CompletarCrafteo()
+    {
+        MostrarMensaje("Fabricaste " + recetaActual.resultado.itemName);
+
+        // Eliminar ingredientes
+        foreach (var ingrediente in recetaActual.ingredientes)
+        {
+            EliminarItem(ingrediente.itemName);
+        }
+
+        // Añadir resultado
+        AddItem(recetaActual.resultado);
+
+        CancelarCrafteo();
+    }
+
+    void CancelarCrafteo()
+    {
+        isCrafting = false;
+        recetaActual = null;
+        craftingTimer = 0f;
+
+        if (craftingUI != null)
+            craftingUI.Hide();
+    }
+
+    public void EliminarItem(string itemName)
+    {
+        if (items[0] != null && items[0].itemName == itemName)
+        {
+            items[0] = items[1];
+            items[1] = null;
+            ActualizarUI();
+            return;
+        }
+
+        if (items[1] != null && items[1].itemName == itemName)
+        {
+            items[1] = null;
+            ActualizarUI();
+        }
+    }
+
+    // ================================================================
+    // ------------------------ MENSAJES -------------------------------
+    // ================================================================
+
+    private void MostrarMensaje(string msg)
+    {
+        if (mensajeTMP == null) return;
+
+        mensajeTMP.text = msg;
+        CancelInvoke(nameof(LimpiarMensaje));
+        Invoke(nameof(LimpiarMensaje), mensajeDuracion);
     }
 
     void LimpiarMensaje()
@@ -118,59 +242,4 @@ public class InventoryManager : MonoBehaviour
         if (mensajeTMP != null)
             mensajeTMP.text = "";
     }
-
-    // Controles para soltar objetos
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            RemoveItem(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            RemoveItem(1);
-        
-        if (Input.GetKeyDown(KeyCode.Q))
-            {
-                DropWithQ();
-            }
-        
-
-    }
-
-    public bool ContieneItem(string itemName)
-    {
-        foreach (var i in items)
-        {
-            if (i != null && i.item.itemName == itemName)
-                return true;
-        }
-        return false;
-    }
-
-    public bool ContieneItem(ItemData itemName)
-    {
-        foreach (var i in items)
-        {
-            if (i != null && i.item == itemName)
-                return true;
-        }
-        return false;
-    }
-
-    private class InventoryItem
-    {
-        public readonly ItemData item;
-        public int quantity;
-
-        public InventoryItem(ItemData item)
-        {
-            this.item = item;
-            this.quantity = item.useAmount;
-        }
-
-        public InventoryItem(ItemData item, int quantity)
-        {
-            this.item = item;
-            this.quantity = quantity;
-        }
-    }
 }
-

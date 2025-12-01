@@ -726,6 +726,7 @@ GameObject:
   - component: {fileID: 7333990534192911195}
   - component: {fileID: 542345953542135257}
   - component: {fileID: 3147252834204444770}
+  - component: {fileID: 5138383131411697818}
   m_Layer: 0
   m_Name: 'PF Player '
   m_TagString: Player
@@ -898,7 +899,7 @@ MonoBehaviour:
   slot2Image: {fileID: 0}
   mensajeTMP: {fileID: 0}
   mensajeDuracion: 10
-  maxItems: 2
+  dropPoint: {fileID: 0}
 --- !u!114 &4772873349307123105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,6 +971,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5551779261223344952}
   m_Enabled: 1
+--- !u!114 &5138383131411697818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551779261223344952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd21fff982c0534ebc3028f85c29431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  craftingBarUI: {fileID: 0}
+  craftingSlider: {fileID: 0}
+  craftingTime: 2
+  recipes: []
 --- !u!1 &5983043708782751369
 GameObject:
   m_ObjectHideFlags: 0

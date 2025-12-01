@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c1c5d627fb7af43bf53d2d95597555, type: 3}
+  m_Name: lampara
+  m_EditorClassIdentifier: 
+  itemName: lampara
+  icon: {fileID: 6242528533265953460, guid: b092762c76b552a42a102ec9536643ce, type: 3}
+  prefab: {fileID: 8189960850421898712, guid: 7b8e553618b37a04ebc2fd8f8daa180b, type: 3}
+  useAmount: 1

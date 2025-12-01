@@ -3,7 +3,7 @@ using UnityEngine;
 public class SimpleStaticTrap : Interactable
 {
     [Header("Configuración")]
-    public ItemData requiredItem;   // Ejemplo: "Veneno", "Anguila", "Fregona"
+    public ItemData requiredItem;
     public int damage = 1;
     public AudioClip prepareSound;
     public AudioClip triggerSound;
@@ -11,18 +11,26 @@ public class SimpleStaticTrap : Interactable
 
     public override void Interact(GameObject player)
     {
-
         InventoryManager inventory = player.GetComponent<InventoryManager>();
-        print($"entro tengo item? {inventory.ContieneItem(requiredItem)}");
+
+        if (inventory == null)
+        {
+            Debug.LogError("ERROR: El jugador no tiene InventoryManager.");
+            return;
+        }
+
         if (inventory.ContieneItem(requiredItem))
         {
             isPrepared = true;
-            AudioSource.PlayClipAtPoint(prepareSound, transform.position);
-            Debug.Log($"{name} preparado con {requiredItem}");
+
+            if (prepareSound != null)
+                AudioSource.PlayClipAtPoint(prepareSound, transform.position);
+
+            Debug.Log($"{name} preparado con {requiredItem.itemName}");
         }
         else
         {
-            Debug.Log($"Falta {requiredItem}");
+            Debug.Log($"Falta {requiredItem.itemName}");
         }
     }
 
@@ -35,8 +43,11 @@ public class SimpleStaticTrap : Interactable
         {
             boss.RecibirDaño(damage);
             isPrepared = false;
-            AudioSource.PlayClipAtPoint(triggerSound, transform.position);
-            Debug.Log($"{name} activado: -{damage} HP al Boss");
+
+            if (triggerSound != null)
+                AudioSource.PlayClipAtPoint(triggerSound, transform.position);
+
+            Debug.Log($"{name} activado: -{damage} HP");
         }
     }
 }
