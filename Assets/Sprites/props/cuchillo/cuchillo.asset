@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: cuchillo
   m_EditorClassIdentifier: 
   itemName: cuchillo
-  icon: {fileID: -6482346157127834526, guid: f34cf656cef32d14d96101f08f2b9ba5, type: 3}
+  icon: {fileID: 4615586339677365327, guid: 7b06405a846e7b549b4168923d618b8f, type: 3}
   prefab: {fileID: 5699472956094283273, guid: 39a4a730c6599bf43862aa880ed6a9ad, type: 3}
   useAmount: 1
