@@ -32,12 +32,23 @@ public class EnemyPathController : MonoBehaviour
     public event System.Action onPointReach;
     public Vector2 Direction => direction;
 
+    //private void Start()
+    //{
+    //    player = GameObject.FindGameObjectWithTag("player").transform;
+
+    //    if (waypoints.Count > 0)
+    //        direction = (waypoints[0].position - transform.position).normalized;
+    //}
+
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        enabled = player != null;
+    }
 
-        if (waypoints.Count > 0)
-            direction = (waypoints[0].position - transform.position).normalized;
+    public void Initialize(Transform player)
+    {
+        this.player = player;
+        enabled = player != null;
     }
 
     void Update()

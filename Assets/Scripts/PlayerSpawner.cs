@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public Transform spawnPoint;
+    //public Transform spawnPoint;
     public GameObject playerPrefab;
-    public string spawnAnimationName = "Spawn";
+    public EnemyPathController enemyPathController;
+    //public string spawnAnimationName = "Spawn";
 
     [Header("Player UI Slots")]
     public Image slot1Image;
@@ -17,14 +18,29 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnPlayer();
+        //StartSpawn();
+        Camera.main.transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            Camera.main.transform.position.z
+        );
     }
 
-    void SpawnPlayer()
+    //void StartSpawn()
+    //{
+    //    //Vector3 fixedPosition = new Vector3(
+    //    //    spawnPoint.position.x,
+    //    //    spawnPoint.position.y,
+    //    //    0  // ← FORZAMOS Z = 0 SIEMPRE
+    //    //);
+
+    //}
+
+    private void SpawnPlayer()
     {
         Vector3 fixedPosition = new Vector3(
-            spawnPoint.position.x,
-            spawnPoint.position.y,
+            transform.position.x,
+            transform.position.y,
             0  // ← FORZAMOS Z = 0 SIEMPRE
         );
 
@@ -36,21 +52,22 @@ public class PlayerSpawner : MonoBehaviour
             cam.SetTarget(playerInstance.transform);
 
         // Animación + movimiento
-        Animator anim = playerInstance.GetComponent<Animator>();
-        var movement = playerInstance.GetComponent<Cainos.PixelArtTopDown_Basic.TopDownCharacterController>();
+        //Animator anim = playerInstance.GetComponent<Animator>();
+        //var movement = playerInstance.GetComponent<Cainos.PixelArtTopDown_Basic.TopDownCharacterController>();
 
-        if (movement != null)
-            movement.enabled = false;
+        //if (movement != null)
+        //    movement.enabled = false;
 
-        if (anim != null)
-            anim.Play(spawnAnimationName);
+        //if (anim != null)
+        //    anim.Play(spawnAnimationName);
 
         InventoryManager inventory = playerInstance.GetComponent<InventoryManager>();
         inventory.slot1Image = slot1Image;
         inventory.slot2Image = slot2Image;
         inventory.mensajeTMP = mensajeTMP;
 
-        StartCoroutine(EnableMovementAfterSpawn(anim, movement));
+        //StartCoroutine(EnableMovementAfterSpawn(anim, movement));
+        enemyPathController.Initialize(playerInstance.transform);
     }
 
 
