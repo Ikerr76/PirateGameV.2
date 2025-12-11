@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ public enum BossState
 {
     Patrol,
     Chasing,
+    Returning,
     Idle,
     Paused
 }
@@ -18,38 +19,51 @@ public class EnemyPathController : MonoBehaviour
     [SerializeField] private bool loopPath = true;
     [SerializeField] private float stopDistance = 0.1f;
 
-    [Header("Detección del jugador")]
+    [Header("DetecciÃ³n del jugador")]
     [SerializeField] private float chaseRange = 3f;
-    [SerializeField] private float loseRange = 4.5f;
+    [SerializeField] private float loseRange = 5f;
+
+    [Header("Evitar Paredes")]
+    [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private float avoidStrength = 3f;
+    [SerializeField] private float avoidDistance = 1f;
 
     private int currentTargetIndex = 0;
     private bool isPaused = false;
     private Vector2 direction;
 
-    private Transform player;
+    private Transform player { get; set; }
     private BossState state = BossState.Patrol;
 
     public event System.Action onPointReach;
     public Vector2 Direction => direction;
 
-    //private void Start()
-    //{
-    //    player = GameObject.FindGameObjectWithTag("player").transform;
-
-    //    if (waypoints.Count > 0)
-    //        direction = (waypoints[0].position - transform.position).normalized;
-    //}
+    // -----------------------------------------------------
+    public void SetPlayer(Transform p)
+    {
+        player = p;
+    }
 
     private void Start()
     {
-        enabled = player != null;
-    }
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player == null)
+        {
+            Debug.LogWarning("EnemyPathController: No se encontrÃ³ el jugador con tag 'Player'");
+        }
+        else
+        {
+            GameObject[] managers = GameObject.FindGameObjectsWithTag("GameManager");
+            if (managers.Length > 0)
+            {
+                player = managers[0].transform;
+            }
+        }
 
-    public void Initialize(Transform player)
-    {
-        this.player = player;
-        enabled = player != null;
+        if (waypoints.Count > 0)
+            direction = (waypoints[0].position - transform.position).normalized;
     }
+    
 
     void Update()
     {
@@ -67,50 +81,56 @@ public class EnemyPathController : MonoBehaviour
                 ChasePlayer();
                 break;
 
-            case BossState.Idle:
-                // No moverse por animación o nodo Idle
+            case BossState.Returning:
+                ReturnMovement();
                 break;
 
+            case BossState.Idle:
             case BossState.Paused:
-                // Controlado por trampa
                 break;
         }
     }
 
-    // ---------------------------------------------------------
-    // MOVERSE POR WAYPOINTS
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // SISTEMA DE EVITACIÃ“N DE PAREDES
+    // -----------------------------------------------------
+    private Vector2 AvoidObstacles(Vector2 currentDir)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, currentDir, avoidDistance, obstacleMask);
+
+        if (hit.collider != null)
+        {
+            Vector2 hitNormal = hit.normal;
+            Vector2 newDir = currentDir + hitNormal * avoidStrength;
+            return newDir.normalized;
+        }
+
+        return currentDir;
+    }
+
+    // -----------------------------------------------------
+    // Movimiento en Patrulla
+    // -----------------------------------------------------
     void PatrolMovement()
     {
         if (waypoints.Count == 0) return;
 
         Transform target = waypoints[currentTargetIndex];
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            target.position,
-            speed * Time.deltaTime
-        );
+        Vector2 moveDir = (target.position - transform.position).normalized;
+        moveDir = AvoidObstacles(moveDir);
 
-        // ¿Llegó al waypoint?
+        transform.position += (Vector3)(moveDir * speed * Time.deltaTime);
+
+        direction = moveDir;
+
         if (Vector2.Distance(transform.position, target.position) < stopDistance)
         {
-            // Revisamos si el waypoint tiene nodo
-            BossWaypointNode node = target.GetComponent<BossWaypointNode>();
-            if (node != null)
-                HandleWaypointNode(node);
-
-            // Cambiar al siguiente waypoint
             currentTargetIndex++;
-
             if (currentTargetIndex >= waypoints.Count)
             {
                 if (loopPath) currentTargetIndex = 0;
-                else
-                {
-                    enabled = false;
-                    return;
-                }
+                else { enabled = false; return; }
             }
 
             direction = (waypoints[currentTargetIndex].position - transform.position).normalized;
@@ -118,56 +138,23 @@ public class EnemyPathController : MonoBehaviour
         }
     }
 
-    // ---------------------------------------------------------
-    // MANEJO DE NODOS ESPECIALES
-    // ---------------------------------------------------------
-    private void HandleWaypointNode(BossWaypointNode node)
-    {
-        switch (node.type)
-        {
-            case WaypointType.Idle:
-                StartCoroutine(IdleCoroutine(node.idleTime));
-                break;
-
-            case WaypointType.Interaction:
-                Animator anim = GetComponentInChildren<Animator>();
-                if (anim != null && !string.IsNullOrEmpty(node.animationTrigger))
-                    anim.SetTrigger(node.animationTrigger);
-                break;
-
-            case WaypointType.ControlDirection:
-                direction = node.forcedDirection.normalized;
-                break;
-        }
-    }
-
-    private IEnumerator IdleCoroutine(float time)
-    {
-        bool oldPaused = isPaused;
-        isPaused = true;
-        yield return new WaitForSeconds(time);
-        isPaused = oldPaused;
-    }
-
-    // ---------------------------------------------------------
-    // PERSEGUIR JUGADOR
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // Movimiento Persiguiendo al Jugador
+    // -----------------------------------------------------
     void ChasePlayer()
     {
         if (player == null) return;
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            player.position,
-            speed * Time.deltaTime
-        );
+        Vector2 moveDir = (player.position - transform.position).normalized;
+        moveDir = AvoidObstacles(moveDir);
 
-        direction = (player.position - transform.position).normalized;
+        transform.position += (Vector3)(moveDir * speed * Time.deltaTime);
+        direction = moveDir;
     }
 
-    // ---------------------------------------------------------
-    // DETECTAR AL JUGADOR
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // DETECCIÃ“N DE JUGADOR
+    // -----------------------------------------------------
     void CheckPlayerDetection()
     {
         if (player == null) return;
@@ -177,20 +164,64 @@ public class EnemyPathController : MonoBehaviour
         if (dist <= chaseRange)
         {
             state = BossState.Chasing;
+            return;
         }
-        else if (state == BossState.Chasing && dist > loseRange)
+
+        if (state == BossState.Chasing && dist > loseRange)
+        {
+            BeginReturnToPath();
+        }
+    }
+
+    // -----------------------------------------------------
+    // VOLVER A LA RUTA DE PATRULLA (INTELIGENTE)
+    // -----------------------------------------------------
+
+    private void BeginReturnToPath()
+    {
+        currentTargetIndex = GetBestRejoinIndex();
+        state = BossState.Returning;
+    }
+
+    private void ReturnMovement()
+    {
+        Transform target = waypoints[currentTargetIndex];
+
+        Vector2 moveDir = (target.position - transform.position).normalized;
+        moveDir = AvoidObstacles(moveDir);
+
+        transform.position += (Vector3)(moveDir * speed * Time.deltaTime);
+        direction = moveDir;
+
+        if (Vector2.Distance(transform.position, target.position) < stopDistance)
         {
             state = BossState.Patrol;
         }
     }
 
-    // ---------------------------------------------------------
+    // ELEGIR el waypoint MÃS CERCANO entre ANTERIOR o SIGUIENTE
+    private int GetBestRejoinIndex()
+    {
+        int next = currentTargetIndex;
+        int prev = currentTargetIndex - 1;
+
+        if (prev < 0) prev = waypoints.Count - 1;
+
+        float dPrev = Vector2.Distance(transform.position, waypoints[prev].position);
+        float dNext = Vector2.Distance(transform.position, waypoints[next].position);
+
+        return (dPrev < dNext) ? prev : next;
+    }
+
+    // -----------------------------------------------------
     // PAUSA POR TRAMPA
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
     public void PausarPorTrampa(float duracion)
     {
         if (!isPaused)
+        {
             StartCoroutine(PausaTemporal(duracion));
+        }
     }
 
     private IEnumerator PausaTemporal(float duracion)
@@ -202,10 +233,16 @@ public class EnemyPathController : MonoBehaviour
         yield return new WaitForSeconds(duracion);
 
         isPaused = false;
-        state = BossState.Patrol;
+
+        if (prev == BossState.Chasing)
+            BeginReturnToPath();
+        else
+            state = BossState.Patrol;
     }
 
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // GIZMOS
+    // -----------------------------------------------------
     private void OnDrawGizmosSelected()
     {
         if (waypoints == null || waypoints.Count < 2) return;
