@@ -1,69 +1,58 @@
-using Cainos.PixelArtTopDown_Basic;
 using UnityEngine;
+using Cainos.PixelArtTopDown_Basic;
 
 public class PlayerHideController : MonoBehaviour
 {
+    public bool IsHidden { get; private set; }
+
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer sprite;
+    private Collider2D col;
     private Rigidbody2D rb;
-    private Collider2D playerCollider;
-    private TopDownCharacterController movementScript;
+    private TopDownCharacterController movement;
 
-    // 🔥 ESTA ES LA VARIABLE REAL QUE USAMOS
-    private bool isHidden = false;
-
-    // 🔥 ESTA ES LA PROPIEDAD QUE USA EL BOSS
-    public bool IsHidden => isHidden;
-
-    private Transform currentHidePoint;
-
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<Collider2D>();
-        movementScript = GetComponent<TopDownCharacterController>();
+        movement = GetComponent<TopDownCharacterController>();
     }
 
     public void Hide(Transform hidePoint)
     {
-        isHidden = true;
-        currentHidePoint = hidePoint;
+        if (IsHidden) return;
 
-        // Animación
-        animator.SetTrigger("Hide");
+        IsHidden = true;
 
-        // Colocar al jugador dentro del armario
+        // Animación del jugador (si existe)
+        if (animator)
+            animator.SetTrigger("Hide");
+
+        // Bloquear jugador
+        movement.enabled = false;
+        rb.linearVelocity = Vector2.zero;
+        col.enabled = false;
+
+        // Colocar dentro
         transform.position = hidePoint.position;
 
-        // Invisibilidad
-        spriteRenderer.enabled = false;
-
-        // No moverse
-        movementScript.enabled = false;
-        rb.linearVelocity = Vector2.zero;
-
-        // No colisiones
-        playerCollider.enabled = false;
-
-        Debug.Log("Jugador escondido");
+        // Ocultar sprite
+        sprite.enabled = false;
     }
 
     public void Unhide()
     {
-        isHidden = false;
+        if (!IsHidden) return;
 
-        // Animación salida
-        animator.SetTrigger("Unhide");
+        IsHidden = false;
 
-        // Volver visible
-        spriteRenderer.enabled = true;
+        if (animator)
+            animator.SetTrigger("Unhide");
 
-        // Rehabilitar movimiento y colisiones
-        movementScript.enabled = true;
-        playerCollider.enabled = true;
-
-        Debug.Log("Jugador salió del escondite");
+        sprite.enabled = true;
+        col.enabled = true;
+        movement.enabled = true;
     }
 }

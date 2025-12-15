@@ -1,28 +1,30 @@
 using UnityEngine;
 
-public class HideSpot : Interactable
+public class HideSpot : MonoBehaviour
 {
-    private bool isHidden = false;
-    public Transform hidePoint; // posición dentro del armario
+    public Animator armarioAnimator;
 
-    public override void Interact(GameObject player)
+    private bool ocupado = false;
+
+    private void OnTriggerStay2D(Collider2D other)
     {
-        PlayerHideController hideController = player.GetComponent<PlayerHideController>();
-        if (hideController == null)
-        {
-            Debug.LogWarning("El jugador no tiene PlayerHideController.");
-            return;
-        }
+        if (!other.CompareTag("Player")) return;
+        if (!Input.GetKeyDown(KeyCode.E)) return;
 
-        if (!isHidden)
+        var hide = other.GetComponent<PlayerHideController>();
+        if (hide == null) return;
+
+        if (!ocupado)
         {
-            hideController.Hide(hidePoint);
-            isHidden = true;
+            ocupado = true;
+            armarioAnimator?.SetTrigger("Open");
+            hide.Hide(transform);
         }
         else
         {
-            hideController.Unhide();
-            isHidden = false;
+            ocupado = false;
+            armarioAnimator?.SetTrigger("Close");
+            hide.Unhide();
         }
     }
 }

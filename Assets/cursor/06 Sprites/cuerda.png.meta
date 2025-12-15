@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 216af165c1de732498c3ba0189a44fe4
+guid: af19b7a8727be4f4a89e38704a4219e5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7246073906985628510
-    second: Protagonista_Abajo_0
-  - first:
-      213: -5555430957669135193
-    second: Protagonista_Abajo_1
+      213: 3392689972189937592
+    second: cuerda_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -99,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Protagonista_Abajo_0
+      name: cuerda_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 36
+        x: 2
+        y: 11
+        width: 44
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2ac05e54c26c07b90800000000000000
-      internalID: -7246073906985628510
+      spriteID: 8bf3961fd81451f20800000000000000
+      internalID: 3392689972189937592
       vertices: []
       indices: 
       edges: []
@@ -128,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 92c5f56e095bcba4fbaab748391ea3bd
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -138,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Protagonista_Abajo_0: -7246073906985628510
+      cuerda_0: 3392689972189937592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

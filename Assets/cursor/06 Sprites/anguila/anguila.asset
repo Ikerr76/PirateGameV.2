@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c1c5d627fb7af43bf53d2d95597555, type: 3}
+  m_Name: anguila
+  m_EditorClassIdentifier: 
+  itemName: anguila
+  icon: {fileID: -1570007484207556701, guid: f29692307c0b8c14fa1866b0c89c4296, type: 3}
+  prefab: {fileID: 4248856355209531654, guid: bb23d169871bca24a9948f091a69559b, type: 3}
+  useAmount: 1

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c1c5d627fb7af43bf53d2d95597555, type: 3}
+  m_Name: Barril
+  m_EditorClassIdentifier: 
+  itemName: Barril
+  icon: {fileID: -8887364692430681888, guid: 0d8a76388735070428c127a6fde62c54, type: 3}
+  prefab: {fileID: 5187930131322458264, guid: 8a00f593675e6cd4b875fcd598a12211, type: 3}
+  useAmount: 1

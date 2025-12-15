@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 7f8268983abba3045b1b047760eded75
+guid: 95e78bd07034792499aae2ef4ae3ef25
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5735269405510238097
-    second: Protagonista_Arriba_0
+      213: -3685792537630711441
+    second: Protagonista(AgarrarIzquierda32x32))_0
   - first:
-      213: -8889483530092859500
-    second: Protagonista_Arriba_1
+      213: -5105913355195611147
+    second: Protagonista(AgarrarIzquierda32x32))_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -99,17 +99,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Protagonista_Arriba_0
+      name: Protagonista(AgarrarIzquierda32x32))_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 36
+        x: 8
+        y: 19
+        width: 19
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f608569ccda3860b0800000000000000
-      internalID: -5735269405510238097
+      spriteID: f616cb6173f69dcc0800000000000000
+      internalID: -3685792537630711441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonista(AgarrarIzquierda32x32))_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 4
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f784a11bd62429b0800000000000000
+      internalID: -5105913355195611147
       vertices: []
       indices: 
       edges: []
@@ -128,7 +176,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 92025db93e2d09e4aad8185e0da3390f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -138,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Protagonista_Arriba_0: -5735269405510238097
+      Protagonista(AgarrarIzquierda32x32))_0: -3685792537630711441
+      Protagonista(AgarrarIzquierda32x32))_1: -5105913355195611147
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
