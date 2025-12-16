@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c1c5d627fb7af43bf53d2d95597555, type: 3}
+  m_Name: matarratas
+  m_EditorClassIdentifier: 
+  itemName: matarratas
+  icon: {fileID: -3989290390196251900, guid: f115658c3e4b0c14f83ed778e8d49e6b, type: 3}
+  prefab: {fileID: 1223136496284618042, guid: b1763b5ce87cfa845b121e833aa1ffee, type: 3}
+  useAmount: 1
