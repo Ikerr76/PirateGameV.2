@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5045b9740945e7439e95fe817f38e14, type: 3}
-  m_Name: Botella envenenada
+  m_Name: veneno
   m_EditorClassIdentifier: 
-  recipeName: botella envenenada
+  recipeName: veneno
   ingredientes:
-  - itemName: botella
-  - itemName: veneno
-  resultado: {fileID: 11400000, guid: d022007af36969841bde5a2f587e68f1, type: 2}
-  craftingTime: 2
+  - itemName: matarratas
+  - itemName: botella vacia
+  resultado: {fileID: 11400000, guid: 190498e7aa0007049b477375da95d85d, type: 2}
+  craftingTime: 1

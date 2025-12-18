@@ -191,7 +191,7 @@ MonoBehaviour:
   mensajeTMP: {fileID: 0}
   mensajeDuracion: 10
   recetas:
-  - {fileID: 11400000, guid: 89231bcf6a65aa44faa25d9aa46ec600, type: 2}
+  - {fileID: 11400000, guid: cd6483b03e2884e6f8cd00e1fdd9f853, type: 2}
   - {fileID: 11400000, guid: caa928740034e1b419ba7e6ef0843c96, type: 2}
   - {fileID: 0}
   craftingUI: {fileID: 0}
