@@ -10,6 +10,8 @@ public class CameraFollow : MonoBehaviour
 
     [Header("Suavidad")]
     public float smoothSpeed = 5f;
+    private float currentSpeed;
+    private float baseSpeed;
 
     public void SetTarget(Transform newTarget)
     {

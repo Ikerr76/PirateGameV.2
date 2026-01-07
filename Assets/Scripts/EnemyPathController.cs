@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ public class EnemyPathController : MonoBehaviour
     private bool isPaused;
 
     public Vector2 Direction { get; private set; }
+    public Action onPointReach { get; internal set; }
 
     // -------------------------
     // SET PLAYER DESDE SPAWNER

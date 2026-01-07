@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TentacleTrap : MonoBehaviour
@@ -25,5 +26,18 @@ public class TentacleTrap : MonoBehaviour
             movement.ResetSpeed();
 
         Destroy(gameObject);
+    }
+}
+
+internal class PlayerMovement
+{
+    internal void ResetSpeed()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void SetSpeedMultiplier(float slowMultiplier)
+    {
+        throw new NotImplementedException();
     }
 }
