@@ -9923,7 +9923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5551779261223344952, guid: 5e8ec010c1f12b144ab6227314b94735, type: 3}
-  enemyPathController: {fileID: 1341887085}
+  enemyPathController: {fileID: 0}
   slot1Image: {fileID: 939525158}
   slot2Image: {fileID: 1707505098}
   mensajeTMP: {fileID: 640143306}
@@ -10007,7 +10007,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1630174176088549059, guid: 799cdb98c217684478926f35c0963c5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10037,6 +10037,9 @@ MonoBehaviour:
   craftingTime: 2
   recipes:
   - {fileID: 11400000, guid: cd6483b03e2884e6f8cd00e1fdd9f853, type: 2}
+  - {fileID: 11400000, guid: 727834cac3e4f414096199cb3f0c922a, type: 2}
+  - {fileID: 11400000, guid: 2262b5a7037434777afb8da0f3d3fcab, type: 2}
+  - {fileID: 11400000, guid: 00eba78f15a924833b6c18a08836b957, type: 2}
 --- !u!1 &769574149
 GameObject:
   m_ObjectHideFlags: 0
@@ -10369,8 +10372,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Jefe
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a14a8a1184c5f14fbce3338ea4d7a35, type: 2}
+  m_sharedMaterial: {fileID: 1260715531048141648, guid: 9a14a8a1184c5f14fbce3338ea4d7a35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14046,7 +14049,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033380289}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1033380291
 Camera:
   m_ObjectHideFlags: 0
@@ -18343,13 +18346,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1341887087}
   - component: {fileID: 1341887086}
-  - component: {fileID: 1341887085}
   - component: {fileID: 1341887088}
   - component: {fileID: 1341887090}
   - component: {fileID: 1341887092}
   - component: {fileID: 1341887091}
   - component: {fileID: 1341887093}
   - component: {fileID: 1341887094}
+  - component: {fileID: 1341887095}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Boss
@@ -18357,56 +18360,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1341887085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341887084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f842623d68e0464da2c7853030f9134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 1510344925}
-  - {fileID: 2001482327}
-  - {fileID: 149708489}
-  - {fileID: 861518512}
-  - {fileID: 861518512}
-  - {fileID: 619991600}
-  - {fileID: 224803624}
-  - {fileID: 1126426113}
-  - {fileID: 342424208}
-  - {fileID: 333115765}
-  - {fileID: 24700572}
-  - {fileID: 1463077188}
-  - {fileID: 626285629}
-  - {fileID: 1850707960}
-  - {fileID: 1663481730}
-  - {fileID: 327951303}
-  - {fileID: 1755610781}
-  - {fileID: 1004982355}
-  - {fileID: 951651435}
-  - {fileID: 344845262}
-  - {fileID: 1548871691}
-  - {fileID: 761648953}
-  - {fileID: 498480604}
-  - {fileID: 1555203266}
-  - {fileID: 645588978}
-  - {fileID: 967912008}
-  - {fileID: 922679140}
-  - {fileID: 572200251}
-  - {fileID: 471891599}
-  - {fileID: 1461390193}
-  - {fileID: 1535766302}
-  - {fileID: 1722484190}
-  speed: 1.21
-  loopPath: 1
-  stopDistance: 0.89
-  chaseRange: 3.71
-  loseRange: 3.8
 --- !u!212 &1341887086
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18630,6 +18583,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.27
+--- !u!114 &1341887095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341887084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0fecd7dad3040d8a0004bfd7526b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1351247476
 GameObject:
   m_ObjectHideFlags: 0
@@ -21208,8 +21173,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a14a8a1184c5f14fbce3338ea4d7a35, type: 2}
+  m_sharedMaterial: {fileID: 1260715531048141648, guid: 9a14a8a1184c5f14fbce3338ea4d7a35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

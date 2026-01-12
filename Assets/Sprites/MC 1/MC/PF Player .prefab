@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 4772873349307123105}
   - component: {fileID: 7333990534192911195}
   - component: {fileID: 542345953542135257}
-  - component: {fileID: 3147252834204444770}
   - component: {fileID: 5138383131411697818}
   m_Layer: 0
   m_Name: 'PF Player '
@@ -264,14 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9b23899f345404e9880d73b2d95187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &3147252834204444770
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551779261223344952}
-  m_Enabled: 1
 --- !u!114 &5138383131411697818
 MonoBehaviour:
   m_ObjectHideFlags: 0

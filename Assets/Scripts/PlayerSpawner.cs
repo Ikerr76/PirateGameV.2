@@ -1,11 +1,11 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerSpawner : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public EnemyPathController enemyPathController;
+    public BossController bossController;
 
     [Header("Player UI Slots")]
     public Image slot1Image;
@@ -16,38 +16,36 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        // SpawnPlayer();   // ← AHORA SIEMPRE SPAWNEA
-
-        // Recoloca la cámara en el punto de spawn
         Camera.main.transform.position = new Vector3(
             transform.position.x,
             transform.position.y,
             Camera.main.transform.position.z
         );
+
+        SpawnPlayer();
     }
 
-    private void SpawnPlayer()
+    void SpawnPlayer()
     {
-        Vector3 fixedPosition = new Vector3(
+        Vector3 fixedPos = new Vector3(
             transform.position.x,
             transform.position.y,
             0
         );
 
-        playerInstance = Instantiate(playerPrefab, fixedPosition, Quaternion.identity);
+        playerInstance = Instantiate(playerPrefab, fixedPos, Quaternion.identity);
 
-        // Cámara sigue al jugador
         CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
         if (cam != null)
             cam.SetTarget(playerInstance.transform);
 
-        // Configurar inventario
-        InventoryManager inventory = playerInstance.GetComponent<InventoryManager>();
-        inventory.slot1Image = slot1Image;
-        inventory.slot2Image = slot2Image;
-        inventory.mensajeTMP = mensajeTMP;
+        InventoryManager inv = playerInstance.GetComponent<InventoryManager>();
+        inv.slot1Image = slot1Image;
+        inv.slot2Image = slot2Image;
+        inv.mensajeTMP = mensajeTMP;
 
-        // decirle al jefe dónde está el jugador
-        enemyPathController.SetPlayer(playerInstance.transform);
+        // <= Cambiado para usar BossController
+        if (bossController != null)
+            bossController.SetPlayer(playerInstance.transform);
     }
 }
