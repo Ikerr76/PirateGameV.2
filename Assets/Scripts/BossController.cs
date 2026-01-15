@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public enum BossState
 {
     Patrol,
-    Chasing,
+    Chase,
     Stunned
 }
 
@@ -24,18 +26,43 @@ public class BossController : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
 
-    private int currentWaypoint;
-    private Transform player;
+    [Header("Health (optional UI)")]
+    public float maxHealth = 100f;
+    public Slider healthBar;
+    public TextMeshProUGUI healthText;
+
+    [Header("Animator Triggers")]
+    public string stunTrigger = "Stun";
+    public string drinkTrigger = "Drink";
+    public string slipTrigger = "Slip";
+
     private BossState state = BossState.Patrol;
-    private Vector2 direction;
-    private bool isPaused;
+    private int currentWaypoint = 0;
+    private Transform player;
+    private bool isPaused = false;
+    private float currentHealth;
+
+    public Vector2 Direction { get; private set; }
+
+    void Awake()
+    {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+    }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        currentHealth = maxHealth;
+        UpdateHealthUI();
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) player = p.transform;
+        }
     }
 
     void Update()
@@ -48,34 +75,41 @@ public class BossController : MonoBehaviour
                 Patrol();
                 DetectPlayer();
                 break;
-
-            case BossState.Chasing:
+            case BossState.Chase:
                 Chase();
-                DetectLosePlayer();
-                break;
-
-            case BossState.Stunned:
-                StopMovement();
+                CheckLosePlayer();
                 break;
         }
 
         UpdateAnimator();
     }
 
-    // ---------------- MOVEMENT ----------------
+    // ----------------------------------------
+    // Waypoints / Patrol
+    // ----------------------------------------
 
     void Patrol()
     {
-        if (waypoints.Count == 0) return;
+        if (waypoints == null || waypoints.Count == 0)
+        {
+            Direction = Vector2.zero;
+            return;
+        }
 
         Transform target = waypoints[currentWaypoint];
         MoveTowards(target.position);
 
         if (Vector2.Distance(transform.position, target.position) < waypointStopDistance)
         {
-            currentWaypoint = (currentWaypoint + 1) % waypoints.Count;
+            currentWaypoint++;
+            if (currentWaypoint >= waypoints.Count)
+                currentWaypoint = 0;
         }
     }
+
+    // ----------------------------------------
+    // Chase
+    // ----------------------------------------
 
     void Chase()
     {
@@ -83,69 +117,112 @@ public class BossController : MonoBehaviour
         MoveTowards(player.position);
     }
 
-    void MoveTowards(Vector2 target)
+    // ----------------------------------------
+    // Movement Core
+    // ----------------------------------------
+
+    void MoveTowards(Vector3 target)
     {
-        direction = (target - (Vector2)transform.position).normalized;
-        rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+        Vector2 dir = (target - transform.position).normalized;
+        Direction = dir;
+        rb.MovePosition(rb.position + dir * speed * Time.deltaTime);
     }
 
-    void StopMovement()
+    void UpdateAnimator()
     {
-        rb.linearVelocity = Vector2.zero;
-        direction = Vector2.zero;
+        bool moving = Direction.magnitude > 0.01f;
+
+        if (animator != null)
+        {
+            animator.SetBool("IsMoving", moving);
+            animator.SetFloat("MoveX", Direction.x);
+            animator.SetFloat("MoveY", Direction.y);
+        }
     }
 
-    // ---------------- DETECTION ----------------
+    // ----------------------------------------
+    // Player Detection
+    // ----------------------------------------
 
     void DetectPlayer()
     {
         if (player == null) return;
+        float dist = Vector2.Distance(transform.position, player.position);
 
-        if (Vector2.Distance(transform.position, player.position) <= chaseRange)
+        if (dist <= chaseRange)
         {
-            state = BossState.Chasing;
+            state = BossState.Chase;
         }
     }
 
-    void DetectLosePlayer()
+    void CheckLosePlayer()
     {
         if (player == null) return;
+        float dist = Vector2.Distance(transform.position, player.position);
 
-        if (Vector2.Distance(transform.position, player.position) > loseRange)
+        if (dist > loseRange)
         {
             state = BossState.Patrol;
         }
     }
 
-    // ---------------- TRAPS ----------------
+    // ----------------------------------------
+    // Interaction / API
+    // ----------------------------------------
 
-    public void PauseByTrap(float time, string animationTrigger)
+    public void SetPlayer(Transform p)
     {
-        StartCoroutine(TrapPause(time, animationTrigger));
+        player = p;
     }
 
-    IEnumerator TrapPause(float time, string trigger)
+    public void RecibirDaño(float amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthUI();
+    }
+
+    public void Trap_Stun(float duration)
+    {
+        StartCoroutine(TrapPause(duration, stunTrigger));
+    }
+
+    public void Trap_Drink(float duration, float damage)
+    {
+        RecibirDaño(damage);
+        StartCoroutine(TrapPause(duration, drinkTrigger));
+    }
+
+    public void Trap_Slip(float duration)
+    {
+        StartCoroutine(TrapPause(duration, slipTrigger));
+    }
+
+    IEnumerator TrapPause(float duration, string trigger)
     {
         isPaused = true;
+        BossState prev = state;
         state = BossState.Stunned;
 
-        if (!string.IsNullOrEmpty(trigger))
+        if (animator != null && !string.IsNullOrEmpty(trigger))
             animator.SetTrigger(trigger);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(duration);
 
         isPaused = false;
-        state = BossState.Patrol;
+        state = prev == BossState.Chase ? BossState.Chase : BossState.Patrol;
     }
 
-    // ---------------- ANIMATOR ----------------
+    // ----------------------------------------
+    // UI Health
+    // ----------------------------------------
 
-    void UpdateAnimator()
+    void UpdateHealthUI()
     {
-        bool moving = direction.magnitude > 0.01f;
+        if (healthBar != null)
+            healthBar.value = currentHealth / maxHealth;
 
-        animator.SetBool("IsMoving", moving);
-        animator.SetFloat("MoveX", direction.x);
-        animator.SetFloat("MoveY", direction.y);
+        if (healthText != null)
+            healthText.text = $"Boss: {currentHealth:0}/{maxHealth}";
     }
 }

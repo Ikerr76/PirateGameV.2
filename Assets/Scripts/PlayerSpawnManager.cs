@@ -1,52 +1,47 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class PlayerSpawnController : MonoBehaviour
+public class PlayerSpawnManager : MonoBehaviour
 {
     [Header("Animator")]
     public Animator animator;
-    public string spawnStateName = "Spawn";
+    public string spawnBool = "HasSpawnFinished"; 
 
     [Header("Control Scripts")]
     public MonoBehaviour movementScript;
-    public MonoBehaviour interactionScript; 
+    public MonoBehaviour interactionScript;
     public MonoBehaviour inventoryScript;
     public MonoBehaviour craftingScript;
     public MonoBehaviour qteScript;
 
-    private bool hasStarted = false;
-
     void Start()
     {
-        // Bloquear todo desde el inicio
+        // ❌ Desactivamos todo
         DisableAll();
 
-        // Iniciar animación de spawn
+        // ✔ Dejamos la animación de spawn
         if (animator != null)
         {
-            animator.Play(spawnStateName);
-            StartCoroutine(WaitForSpawnEnd());
-        }
-        else
-        {
-            // Si no hay animator, activar todo de inmediato
-            EnableAll();
+            animator.SetBool(spawnBool, false);
+
+            // Opcional: iniciar el estado de Spawn
+            animator.Play("Spawn");
         }
     }
 
-    IEnumerator WaitForSpawnEnd()
+    void Update()
     {
-        // Espera hasta que la animación de spawn **ya no esté activa**
-        hasStarted = true;
+        if (animator == null) return;
 
-        // Mientras el animator esté reproduciendo "Spawn" → espera
-        while (animator.GetCurrentAnimatorStateInfo(0).IsName(spawnStateName))
+        // Si el animator ya ha puesto HasSpawnFinished = true
+        if (animator.GetBool(spawnBool))
         {
-            yield return null;
-        }
+            // Entonces activamos todo
+            EnableAll();
 
-        // Terminado el estado de spawn → reactivar controles
-        EnableAll();
+            // Una vez activado, desactivamos este script para no volver a entrar
+            this.enabled = false;
+        }
     }
 
     void DisableAll()
@@ -66,4 +61,10 @@ public class PlayerSpawnController : MonoBehaviour
         if (craftingScript != null) craftingScript.enabled = true;
         if (qteScript != null) qteScript.enabled = true;
     }
+
+    public void OnSpawnComplete()
+{
+    animator.SetBool("HasSpawnFinished", true);
+}
+
 }
